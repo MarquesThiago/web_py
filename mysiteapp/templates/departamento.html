@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departamento</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block conteudo  %}
     <ul>
-   
+        <h1>{{Departamento}} </h1>
 
-        <h1>Departamentos </h1>
-
-        {% for dp in depth %}
+        {% for dp in lista_de_depth %}
         <li>
            <h2> 
-                {{dp.id}} : {{dp.nome}} 
+                {{dp.id}} : {{dp.nome}} <a href = "{% url 'filter' dp.id %}"> ver</a>
             </h2>
         </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 # importando o modulo responsavel pelas respostas http
 
@@ -17,26 +18,43 @@ def index(request):
     return HttpResponse(output)
 
 
-def filter(request, id_deph):
+# def filter(request, id_deph):
 
-    deph = Departamento.objects.get(id = id_deph)
-    return HttpResponse(str(deph))
+#     deph = Departamento.objects.get(id = id_deph)
+#     return HttpResponse(str(deph))
 
 
-# esta funçã é feita para retornar um objeto com todos os dados de departamento ao nosso template
-def list(request):
+class Filter(DetailView):
+    model = Departamento
+    template_name = 'filter_depth.html'
     
-    # recebemos os dados e passamos ordenoados pr nome 
 
-    deph = Departamento.objects.order_by("nome")
 
-    # passamos um dicionario como saida
+# # esta funçã é feita para retornar um objeto com todos os dados de departamento ao nosso template
+# def list(request):
+    
+#     # recebemos os dados e passamos ordenoados pr nome 
 
-    out = {"depth" : deph}
+#     deph = Departamento.objects.order_by("nome")
 
-    # E retornamos um resposta ao template (template_name) com o conteudo (context) proprimente dito 
-    return render(request, template_name='departamento.html', context=out)
+#     # passamos um dicionario como saida
 
+#     out = {"depth" : deph, "pagine" : "Departamentos -Lista"}
+
+#     # E retornamos um resposta ao template (template_name) com o conteudo (context) proprimente dito 
+#     return render(request, template_name='departamento.html', context=out)
+
+
+class ListDeph(ListView):
+    model = Departamento
+    template_name = "departamento.html"
+    queryset = Departamento.objects.order_by("nome")
+    context_object_name = "lista_de_depth"
+
+    def get_context_data(self, **kwargs):
+        context = super(ListDeph, self).get_context_data(**kwargs)
+        context["Departamento"] = "Lista de Departamento"
+        return  context
 
 
 
