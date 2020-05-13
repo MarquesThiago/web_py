@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block conteudo %}
-<link rel = "stylesheet" href = {% static 'css/estilo.css' %}/>
+<link rel = "stylesheet"  type="text/css" href = "{% static 'css/estilo.css' %}">
 <table>
     <tr>
         <td> 
@@ -11,7 +11,7 @@
         </td>
 
          <td> 
-            {{departamento.id}}
+            {{Depth.id}}
         </td>
     </tr>
 
@@ -21,7 +21,7 @@
         </td>
 
          <td> 
-            {{departamento.nome}}
+            {{Depth.nome}}
         </td>
     </tr>
      <tr>
@@ -30,11 +30,16 @@
         </td>
 
          <td> 
-            {{departamento.telefone}}
+            {{Depth.telefone}}
         </td>
     </tr>
 </table>
 
+{% for lf in Funcionarios %}
+
+<p> {{lf.nome}}</p>
+
+{% endfor %}
 
 
 

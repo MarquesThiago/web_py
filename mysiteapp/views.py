@@ -7,15 +7,49 @@ from django.http import HttpResponse
 
 # importanod o modeilo de departamento dos models 
 from .model.Departamento import Departamento
+from .model.funcionario import Funcionario
+
+
+def index(request):
+    return render(request, 'index.html')
+    
+
+def filter(request, pk):
+    out = {}
+    out["Funcionarios"] = Funcionario.objects.filter(id_dept = pk)
+    print(out["Funcionarios"])
+    out["Depth"] = Departamento.objects.get(id = pk)
+    return render(request, "filter_depth.html", context= out)
+
+
+    
+
+class ListDeph(ListView):
+    model = Departamento
+    template_name = "departamento.html"
+    queryset = Departamento.objects.order_by("nome")
+    context_object_name = "lista_de_depth"
+
+    def get_context_data(self, **kwargs):
+        context = super(ListDeph, self).get_context_data(**kwargs)
+        context["Departamento"] = "Lista de Departamento"
+        return  context
+
+def new_depth(request):
+    return render(request, "new_depth.html")
+
+
+def new_funcionary(request):
+    return HttpResponse(request)
 
 
 # todas as aplicações de resposta serão criadas como funções, assim como abaixo
 
-def index(request):
+# def index(request):
 
-    deph = Departamento.objects.order_by("id")
-    output = ", ".join([dp.nome for dp in deph])
-    return HttpResponse(output)
+#     deph = Departamento.objects.order_by("id")
+#     output = ", ".join([dp.nome for dp in deph])
+#     return HttpResponse(output)
 
 
 # def filter(request, id_deph):
@@ -24,9 +58,6 @@ def index(request):
 #     return HttpResponse(str(deph))
 
 
-class Filter(DetailView):
-    model = Departamento
-    template_name = 'filter_depth.html'
     
 
 
@@ -44,17 +75,6 @@ class Filter(DetailView):
 #     # E retornamos um resposta ao template (template_name) com o conteudo (context) proprimente dito 
 #     return render(request, template_name='departamento.html', context=out)
 
-
-class ListDeph(ListView):
-    model = Departamento
-    template_name = "departamento.html"
-    queryset = Departamento.objects.order_by("nome")
-    context_object_name = "lista_de_depth"
-
-    def get_context_data(self, **kwargs):
-        context = super(ListDeph, self).get_context_data(**kwargs)
-        context["Departamento"] = "Lista de Departamento"
-        return  context
 
 
 

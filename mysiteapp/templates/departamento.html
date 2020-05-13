@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block conteudo  %}
-    <ul>
-        <h1>{{Departamento}} </h1>
+<link rel = "stylesheet" type = "text/css" href = "{% static 'css/departamento.css' %}">
+    <a href = "{% url  "new_depth" %}" class ="new_depth"><button>Novo Departamento</button></a>
+    <div class  = "container_depth" > 
+        <ul>
+            <h1>{{Departamento}} </h1>
+            <hr class= "line"> </hr>
 
-        {% for dp in lista_de_depth %}
-        <li>
-           <h2> 
-                {{dp.id}} : {{dp.nome}} <a href = "{% url 'filter' dp.id %}"> ver</a>
-            </h2>
-        </li>
-        {% endfor %}
-    </ul>
+            {% for dp in lista_de_depth %}
+            <li>
+                <h2> 
+                    <a href = "{% url 'filter' dp.id %}"> {{dp.nome}} </a>
+                </h2>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+   
 {% endblock %}

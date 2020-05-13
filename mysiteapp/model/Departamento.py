@@ -8,3 +8,4 @@ class Departamento(models.Model):
 
     def __str__(self):
         return f"id: {self.id}, nome: {self.nome}, telefone: {self.telefone}"
+

@@ -1,7 +1,13 @@
-* {
+body{
     margin: auto;
+    padding: 40px; 
+    background-color: cornflowerblue;
+    height: 100%;
+    background-image: linear-gradient(to bottom right, rgb(19, 66, 153) 10%,rgb(20, 48, 99) 40%, rgb(11, 21, 39) 100%);
+    background-size: 100% 300%;
 }
 
-body {
-    margin-top: 150px;
-}
+.principal{ 
+    margin-top: 30px;
+   
+} 
